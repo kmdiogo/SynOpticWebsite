@@ -1,0 +1,153 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SynOptic</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <style>
+        #image-field{
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        #image-preview{
+            max-width: 100%;
+            max-height: 100%;
+            {#object-fit: cover;#}
+        }
+
+        #image-preview-container{
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="wrapper">
+    <div class="row d-flex justify-content-center align-self-center">
+        <h1>SynOptic</h1>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <div class="form-group row">
+                    {{ form.image.errors }}
+                    <label class="btn btn-primary hover-expand" for="image-field">Upload an Image <i class="fas fa-upload"></i></label>
+                    {% render_field form.image id="image-field" %}
+                </div>
+                <div class="d-flex row justify-content-center align-self-center">
+                    <div class="border border-dark d-flex justify-content-center align-self-center" id="image-preview-container">
+                        <img id="image-preview"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center">Settings</h4>
+                <div class="container">
+                    <img id="imagePreview"/>
+                    <div class="form-group">
+                        {{ form.image.scale.errors }}
+                        <label for="scaleField">Musical Scale:</label>
+                        {% render_field form.scale id="scaleField" class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.length.errors }}
+                        <label for="lengthField">Length:</label>
+                        {% render_field form.length id="lengthField" class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.fileName.errors }}
+                        <label for="filenameField">Song Name:</label>
+                        {% render_field form.fileName id="filenameField" class="form-control" %}
+                    </div>
+                    <input type="submit" value="Submit" />
+                </div>
+            </div>
+        </div>
+    </form>
+{#	<div class="jumbotron">#}
+{#		<h2>Upload and Choose Settings</h2>#}
+{#		<form action="" method="post" enctype="multipart/form-data" id="Form_Upload">#}
+{#			{% csrf_token %}#}
+{#            {{ form.non_field_errors }}#}
+{#			<div class="form-group">#}
+{#                {{ form.image.errors }}#}
+{#				<label for="imageField">Image:</label>#}
+{#				{% render_field form.image id="imageField" class="form-control" %}#}
+{#			</div>#}
+{#            <img id="imagePreview"/>#}
+{#			<div class="form-group">#}
+{#                {{ form.image.scale.errors }}#}
+{#				<label for="scaleField">Musical Scale:</label>#}
+{#				{% render_field form.scale id="scaleField" class="form-control" %}#}
+{#			</div>#}
+{#			<div class="form-group">#}
+{#                {{ form.length.errors }}#}
+{#				<label for="lengthField">Length:</label>#}
+{#				{% render_field form.length id="lengthField" class="form-control" %}#}
+{#			</div>#}
+{#			<div class="form-group">#}
+{#                {{ form.fileName.errors }}#}
+{#				<label for="filenameField">Song Name:</label>#}
+{#				{% render_field form.fileName id="filenameField" class="form-control" %}#}
+{#			</div>#}
+{##}
+{#			<input type="submit" value="Submit" />#}
+{#		</form>#}
+{#        <a href="https://www.youtube.com/channel/UCOsEtbNZgFc-kS4v2z1saBQ"> Contact Us </a>#}
+{#	</div>#}
+</div>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+<script>
+    let customFileName = false;
+    let fileName;
+
+    $(document).ready(function(){
+        BindEvents();
+    });
+
+    function BindEvents(){
+        $("#image-field").change(function () {
+            console.log("hello world");
+            customFileName = false;
+            readURL(this);
+            {#fileName = $(this).val().replace(/C:\\fakepath\\/i, '')#}
+            {#let re = /(?:\.([^.]+))?$/;#}
+            {#let ext = re.exec(fileName)[1];#}
+            {#let cleanFileName = fileName.replace('.' + ext, '')#}
+            {#$("#filenameField").val(cleanFileName + " In " + $("#scaleField option:selected").text());#}
+        });
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
