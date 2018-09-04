@@ -3,3 +3,4 @@ MIDIUtil
 numpy
 django-widget-tweaks
 scipy
+django

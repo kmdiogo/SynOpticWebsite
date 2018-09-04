@@ -59,19 +59,19 @@
                     <div class="form-group">
                         {{ form.image.scale.errors }}
                         <label for="scaleField">Musical Scale:</label>
-                        {% render_field form.scale id="scaleField" class="form-control" %}
+                        {% render_field form.scale id="scaleField" class="form-control hover-expand" %}
                     </div>
                     <div class="form-group">
                         {{ form.length.errors }}
                         <label for="lengthField">Length:</label>
-                        {% render_field form.length id="lengthField" class="form-control" %}
+                        {% render_field form.length id="lengthField" class="form-control hover-expand" %}
                     </div>
                     <div class="form-group">
                         {{ form.fileName.errors }}
                         <label for="filenameField">Song Name:</label>
-                        {% render_field form.fileName id="filenameField" class="form-control" %}
+                        {% render_field form.fileName id="filenameField" class="form-control hover-expand" %}
                     </div>
-                    <input type="submit" value="Submit" />
+                    <input class="btn btn-primary hover-expand" type="submit" value="Submit" />
                 </div>
             </div>
         </div>
