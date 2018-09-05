@@ -10,6 +10,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <style>
+        body{
+        color: black;
+        font-family: Audiowide, Helvetica, Arial, Verdana, Geneva;
+        font-size: 20px;
+        }
+
+        h1{
+            font-size: 70px;
+        }
+
+        h3{
+            font-size: 15px;
+        }
+
+        #links{
+            padding: 20px 0 0 0;
+        }
+
+        a:link {
+            color: blue;
+        }
+
+        a:visited {
+            color:purple;
+        }
+
+        a:hover {
+            color: orange;
+        }
+
         #image-field{
             width: 0.1px;
             height: 0.1px;
@@ -43,7 +73,9 @@
 <body>
 <div class="container border rounded shadow-lg" id="wrapper">
     <div class="row d-flex justify-content-center align-self-center">
-        <h1>SynOptic</h1>
+        <h1>
+            SynOptic
+        </h1>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -84,6 +116,19 @@
             </div>
         </div>
     </form>
+    <div id="links">
+        <div class="row align-self-center justify-content-center">
+            <a href="aboutUs.html">
+                About Us
+            </a>
+        </div>
+        <div class="row align-self-center justify-content-center">
+            <a href="ContactUs.html">
+                Contact Us
+            </a>
+        </div>
+    </div>
+
 {#	<div class="jumbotron">#}
 {#		<h2>Upload and Choose Settings</h2>#}
 {#		<form action="" method="post" enctype="multipart/form-data" id="Form_Upload">#}
