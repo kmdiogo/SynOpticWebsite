@@ -16,5 +16,32 @@
 
 body{
     background-image: url("../images/animal-collage.jpg");
+    color: black;
+    font-family: Audiowide, Helvetica, Arial, Verdana, Geneva;
+    font-size: 20px;
 }
 
+h1{
+    font-size: 70px;
+    padding: 20px;
+}
+
+h3{
+    font-size: 15px;
+}
+
+#links{
+    padding: 20px 0 0 0;
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color:purple;
+}
+
+a:hover {
+    color: orange;
+}

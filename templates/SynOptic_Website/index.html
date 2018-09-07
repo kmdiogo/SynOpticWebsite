@@ -9,38 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
     <style>
-        body{
-        color: black;
-        font-family: Audiowide, Helvetica, Arial, Verdana, Geneva;
-        font-size: 20px;
-        }
-
-        h1{
-            font-size: 70px;
-            padding: 20px;
-        }
-
-        h3{
-            font-size: 15px;
-        }
-
-        #links{
-            padding: 20px 0 0 0;
-        }
-
-        a:link {
-            color: blue;
-        }
-
-        a:visited {
-            color:purple;
-        }
-
-        a:hover {
-            color: orange;
-        }
-
         #image-field{
             width: 0.1px;
             height: 0.1px;
@@ -72,7 +42,7 @@
 </head>
 
 <body>
-<div class="container border rounded shadow-lg" id="wrapper">
+<div class="container border rounded shadow-lg border-dark" id="wrapper">
     <div class="row d-flex justify-content-center align-self-center">
         <h1>
             SynOptic
@@ -119,12 +89,12 @@
     </form>
     <div id="links">
         <div class="row align-self-center justify-content-center">
-            <a href="aboutUs.html">
+            <a class="hover-expand" href="aboutUs.html">
                 About Us
             </a>
         </div>
         <div class="row align-self-center justify-content-center">
-            <a href="ContactUs.html">
+            <a class="hover-expand" href="ContactUs.html">
                 Contact Us
             </a>
         </div>
