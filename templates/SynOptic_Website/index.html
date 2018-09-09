@@ -141,8 +141,11 @@
     let customFileName = false;
     let fileName;
 
+
+
     $(document).ready(function(){
         BindEvents();
+        RunBackgroundSlideshow();
     });
 
     function BindEvents(){
@@ -168,6 +171,21 @@
 
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    let photoCount = 1;
+    const photoPaths = ["../../static/images/cat-and-dog.jpg","../../static/images/dog.jpg", "../../static/images/pandas.jpg",
+                      "../../static/images/pug.jpg"]
+    function RunBackgroundSlideshow() {
+        window.setInterval(function(){
+        let selection = Math.floor(Math.random() * (2 + 1));
+        if (photoCount == photoPaths.length-1)
+            photoCount = 0;
+        else
+            photoCount += 1;
+        let imageUrl = photoPaths[photoCount];
+        $('body').css('background-image',"url(" + imageUrl + ")");
+        },5000);
     }
 
 

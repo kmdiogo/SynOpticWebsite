@@ -15,7 +15,8 @@
 }
 
 body{
-    background-image: url("../images/animal-collage.jpg");
+    background-image: url("../images/cat-and-dog.jpg");
+    -webkit-transition: all 1s ease-in-out;
     color: black;
     font-family: Audiowide, Helvetica, Arial, Verdana, Geneva;
     font-size: 20px;
