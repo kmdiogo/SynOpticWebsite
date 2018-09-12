@@ -68,3 +68,8 @@ def get_scale(choice):
     else:
         return (cMaj_Pent_Scale, "CmajorPent")
 
+def AboutUs(request):
+    return render(request, "SynOptic_Website/about-us.html")
+
+def ContactUs(request):
+    return render(request, "SynOptic_Website/contact-us.html")
