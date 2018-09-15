@@ -33,12 +33,12 @@ def index(request):
                                                 img_io.tell(), None)
 
             choice = form.cleaned_data['scale']
-            scale, scaleName = get_scale(choice)
+            scale = get_scale(choice)
 
             # Write generated MIDI binary data to temporary file then read the contents into a variable
             # This is done because the MIDIUtil library can only export by writing to a file
             with NamedTemporaryFile(mode='rb+') as temp:
-                midi = image_to_audio(resizedImage, scale, 8)
+                midi = image_to_audio(resizedImage, scale, len(scale))#8)
                 midi.writeFile(temp)
                 temp.flush()
                 temp.seek(0)
@@ -58,15 +58,21 @@ def index(request):
 
 def get_scale(choice):
     cMajor_scale = [72, 74, 76, 77, 79, 81, 83, 84]
-    aMinor_scale = [67, 69, 70, 72, 74, 75, 77, 79]
+    gMajor_Scale = [67, 69, 70, 72, 74, 75, 77, 79]
     cMaj_Pent_Scale = [72, 70, 78, 12, 81, 87, 14, 10]
+    fLydian_Scale = [65, 67, 69, 71, 72, 74, 76, 77]
+    cChromatic_Scale = [72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84]
     # cMaj_Pent_Scale = [72,74,76,79,81,84]
     if choice == "CMAJOR":
-        return (cMajor_scale, "Cmajor")
-    elif choice == "AMINOR":
-        return (aMinor_scale, "Aminor")
+        return cMajor_scale
+    elif choice == "GMAJOR":
+        return gMajor_Scale
+    elif choice == "FLYDIAN":
+        return fLydian_Scale
+    elif choice == "CCHROMATIC":
+        return cChromatic_Scale
     else:
-        return (cMaj_Pent_Scale, "CmajorPent")
+        return cMaj_Pent_Scale
 
 def AboutUs(request):
     return render(request, "SynOptic_Website/about-us.html")
