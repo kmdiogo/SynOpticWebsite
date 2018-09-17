@@ -92,8 +92,10 @@
 
     <div id="links">
         <div class="row align-self-center justify-content-center">
-            <a class="hover-expand" href=""><!-- I know this is blank. I tried a few things but couldn't get it.-->
-                Home (Couldn't get this to work. Fix it pls Knny)
+            {# Use the django template engine to generate the urls for an action. The url Name is the name #}
+            {# we assigned each url in the urls.py file #}
+            <a class="hover-expand" href="{% url 'index' %}">
+                Home
             </a>
         </div>
         <div class="row align-self-center justify-content-center">
