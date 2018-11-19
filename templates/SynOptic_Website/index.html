@@ -42,10 +42,10 @@
         <div class="card-body">
             <div class="container" v-if="activeSection === 0">
                 <div class="row justify-content-center">
-                     <input class="btn" type="file" v-on:change="imgPreviewChange" />
+                     <file-reader v-on:load="img=$event"></file-reader>
                 </div>
                 <div class="row justify-content-center">
-                    <img src="{% static 'images/pandas.jpg' %}" style="height: 500px;" id="image-preview" />
+                    <img v-bind:src="img" style="height: 500px;" id="image-preview" />
                 </div>
 
             </div>
@@ -61,6 +61,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="image-data" />
 {% endblock %}
 
 
