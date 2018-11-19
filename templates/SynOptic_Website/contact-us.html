@@ -10,14 +10,43 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+    <style>
+        body{
+            background-color: #8EFB8C;
+        }
+
+        h1{
+            text-align: center;
+            padding: 30px 0 25px 0;
+            text-decoration: underline;
+        }
+    </style>
 
 </head>
 <body>
-    We're shit
+    <h1>
+        Contact SynOptic
+    </h1>
+
+    or don't :\
+
+    <div id="links">
+        <div class="row align-self-center justify-content-center">
+            {# Use the django template engine to generate the urls for an action. The url Name is the name #}
+            {# we assigned each url in the urls.py file #}
+            <a class="hover-expand" href="{% url 'index' %}">
+                Home
+            </a>
+        </div>
+        <div class="row align-self-center justify-content-center">
+            <a class="hover-expand" href="about-us">
+                About Us
+            </a>
+        </div>
+    </div>
 
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 
 </body>
-
 </html>
