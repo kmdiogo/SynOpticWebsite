@@ -1,225 +1,83 @@
+{% extends 'Base.html' %}
 {% load static %}
 {% load widget_tweaks %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SynOptic</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
-    <style>
-        #image-field{
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
 
-        #image-preview{
-            max-width: 100%;
-            max-height: 100%;
-            {#object-fit: cover;#}
-        }
-
-        #image-preview-container{
-            width: 100%;
-            height: 500px;
-        }
-        #wrapper{
-            background-color: rgba(255,255,255,0.85);
-            margin-top: 30px;
-            margin-bottom: 30px;
-            padding-left: 30px;
-            padding-right: 30px;
-            padding-bottom: 30px;
-        }
-        #background-images{
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -50;
-        }
-        .background-image{
-            opacity: 0;
-            width: 110%;
-            height: 110%;
-            position: fixed;
-            top: 0;
-            left: -100px;
-            transition: opacity 0.6s ease-in-out, left 5s linear;
-        }
-        .background-image.active{
-            left: 0px;
-            opacity: 1;
-        }
-    </style>
-</head>
-
-<body>
-<div id="background-images">
-    <img class="background-image" src="../../static/images/cat-and-dog.jpg" id="first-background-image" />
-    <img class="background-image" src="../../static/images/dog.jpg" />
-    <img class="background-image" src="/static/images/pandas.jpg" />
-    <img class="background-image" src="/static/images/pug.jpg" />
-</div>
-<div class="container border rounded shadow-lg border-dark" id="wrapper">
-    <div class="row d-flex justify-content-center align-self-center">
-        <h1>
-            SynOptic
-        </h1>
-    </div>
-    <form action="" method="post" enctype="multipart/form-data">
-        <div class="row">
-            {% csrf_token %}
-            <div class="col-md-6">
-                <div class="form-group row">
-                    {{ form.image.errors }}
-                    <label class="btn btn-primary hover-expand" for="image-field">Upload Image <i class="fas fa-upload"></i></label>
-                    {% render_field form.image id="image-field" %}
-                </div>
-                <div class="d-flex row justify-content-center align-self-center">
-                    <div class="border border-dark d-flex justify-content-center align-self-center" id="image-preview-container">
-                        <img id="image-preview"/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h4 class="text-center">Settings</h4>
-                <div class="container">
-                    <img id="imagePreview"/>
-                    <div class="form-group">
-                        {{ form.image.scale.errors }}
-                        <label for="scaleField">Musical Scale:</label>
-                        {% render_field form.scale id="scaleField" class="form-control hover-expand" %}
-                    </div>
-                    <div class="form-group">
-                        {{ form.length.errors }}
-                        <label for="lengthField">Length:</label>
-                        {% render_field form.length id="lengthField" class="form-control hover-expand" %}
-                    </div>
-                    <div class="form-group">
-                        {{ form.fileName.errors }}
-                        <label for="filenameField">Song Name:</label>
-                        {% render_field form.fileName id="filenameField" class="form-control hover-expand" %}
-                    </div>
-                    <input class="btn btn-primary hover-expand" type="submit" value="Submit" />
-                </div>
-            </div>
-        </div>
-    </form>
-    <div id="links">
-        <div class="row align-self-center justify-content-center">
-            <a class="hover-expand" href="about-us">
-                About Us
-            </a>
-        </div>
-        <div class="row align-self-center justify-content-center">
-            <a class="hover-expand" href="contact-us">
-                Contact Us
-            </a>
-        </div>
-    </div>
-
-</div>
-
-
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-
-<script>
-    let customFileName = false;
-    let fileName;
-
-
-
-    $(document).ready(function(){
-        $('#first-background-image').addClass('active');
-        BindEvents();
-        RunBackgroundSlideshow();
-    });
-
-    function BindEvents(){
-        $("#image-field").change(function () {
-            console.log("hello world");
-            customFileName = false;
-            readURL(this);
-            {#fileName = $(this).val().replace(/C:\\fakepath\\/i, '')#}
-            {#let re = /(?:\.([^.]+))?$/;#}
-            {#let ext = re.exec(fileName)[1];#}
-            {#let cleanFileName = fileName.replace('.' + ext, '')#}
-            {#$("#filenameField").val(cleanFileName + " In " + $("#scaleField option:selected").text());#}
-        });
+{% block head %}
+<style xmlns:v-bind="http://www.w3.org/1999/xhtml">
+    #wrapper-app{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
     }
+    #navs > li > a,button{
+        text-align: center;
+        width: 100%;
+    }
+</style>
+{% endblock %}
 
+
+{% block content %}
+<div class="container" id="wrapper-app">
+    <div class="card w-100">
+        <div class="card-header">
+            <ul class="nav row" id="navs">
+                <li class="nav-item col-md">
+                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 0}" v-on:click="activeSection = 0">Image</button>
+                </li>
+                <li class="nav-item col-md">
+                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 1 }" v-on:click="activeSection = 1">Scale</button>
+                </li>
+                <li class="nav-item col-md">
+                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 2}" v-on:click="activeSection = 2">Name</button>
+                </li>
+                <li class="nav-item col-md">
+                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 3 }" v-on:click="activeSection = 3">File</button>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="container" v-if="activeSection === 0">
+                <div class="row justify-content-center">
+                     <input class="btn" type="file" v-on:change="imgPreviewChange" />
+                </div>
+                <div class="row justify-content-center">
+                    <img src="{% static 'images/pandas.jpg' %}" style="height: 500px;" id="image-preview" />
+                </div>
+
+            </div>
+            <div class="row justify-content-center" v-if="activeSection === 1">
+                b
+            </div>
+            <div class="row justify-content-center" v-if="activeSection === 2">
+                c
+            </div>
+            <div class="row justify-content-center" v-if="activeSection === 3">
+                d
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#image-preview').attr('src', e.target.result);
+                let imgPrev = document.getElementById('image-preview');
+                imgPrev.setAttribute('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
         }
     }
-
-    let photoCount = 0;
-    const photoPaths = ["../../static/images/cat-and-dog.jpg","../../static/images/dog.jpg", "../../static/images/pandas.jpg",
-                      "../../static/images/pug.jpg"]
-    function RunBackgroundSlideshow() {
-        window.setInterval(function() {
-            let images = $('.background-image');
-            $(images[photoCount]).removeClass('active');
-            if (photoCount == images.length - 1 )
-                photoCount = 0;
-            else
-                photoCount += 1;
-            $(images[photoCount]).addClass('active');
-        },6000)
-    }
-
-
 </script>
-
-</body>
-</html>
-
-
-{#	<div class="jumbotron">#}
-{#		<h2>Upload and Choose Settings</h2>#}
-{#		<form action="" method="post" enctype="multipart/form-data" id="Form_Upload">#}
-{#			{% csrf_token %}#}
-{#            {{ form.non_field_errors }}#}
-{#			<div class="form-group">#}
-{#                {{ form.image.errors }}#}
-{#				<label for="imageField">Image:</label>#}
-{#				{% render_field form.image id="imageField" class="form-control" %}#}
-{#			</div>#}
-{#            <img id="imagePreview"/>#}
-{#			<div class="form-group">#}
-{#                {{ form.image.scale.errors }}#}
-{#				<label for="scaleField">Musical Scale:</label>#}
-{#				{% render_field form.scale id="scaleField" class="form-control" %}#}
-{#			</div>#}
-{#			<div class="form-group">#}
-{#                {{ form.length.errors }}#}
-{#				<label for="lengthField">Length:</label>#}
-{#				{% render_field form.length id="lengthField" class="form-control" %}#}
-{#			</div>#}
-{#			<div class="form-group">#}
-{#                {{ form.fileName.errors }}#}
-{#				<label for="filenameField">Song Name:</label>#}
-{#				{% render_field form.fileName id="filenameField" class="form-control" %}#}
-{#			</div>#}
-{##}
-{#			<input type="submit" value="Submit" />#}
-{#		</form>#}
-{#        <a href="https://www.youtube.com/channel/UCOsEtbNZgFc-kS4v2z1saBQ"> Contact Us </a>#}
-{#	</div>#}
+<script src="{% static 'js/V-Home.js' %}"></script>
+{% endblock %}
