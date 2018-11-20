@@ -12,8 +12,8 @@ def index(request):
     if request.method == 'POST':
         form = MIDIConfig(request.POST, request.FILES)
         if form.is_valid():
-            ### Algorithm: Resize image, run image through audioization algorithm,
-            ### save file data to temporary variable, send data back to user as attachment
+            # Algorithm: Resize image, run image through audioization algorithm,
+            # save file data to temporary variable, send data back to user as attachment
 
             # Get uploaded image, resize it, then
             originalImage = form.cleaned_data['image']
