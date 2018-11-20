@@ -15,6 +15,7 @@
 }
 
 body{
+    background-image: url('/static/images/background.jpg');
     background-size: cover;
     color: black;
     font-family: Audiowide, Helvetica, Arial, Verdana, Geneva;
@@ -28,6 +29,10 @@ body,html{
 h1{
     font-size: 70px;
     padding: 20px;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon{
+
 }
 
 h3{

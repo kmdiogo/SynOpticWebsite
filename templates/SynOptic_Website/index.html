@@ -16,13 +16,24 @@
         text-align: center;
         width: 100%;
     }
+    .slide-fade-enter-active {
+      transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
 </style>
 {% endblock %}
 
 
 {% block content %}
 <div class="container" id="wrapper-app">
-    <div class="card w-100">
+    <div class="card w-100 text-white bg-dark shadow-lg">
         <div class="card-header">
             <ul class="nav row" id="navs">
                 <li class="nav-item col-md">
@@ -39,24 +50,45 @@
                 </li>
             </ul>
         </div>
-        <div class="card-body">
-            <div class="container" v-if="activeSection === 0">
-                <div class="row justify-content-center">
-                     <file-reader v-on:load="img=$event"></file-reader>
+        <div class="card-body row no-gutters" style="padding: 0;">
+            <div class="col-1" style="z-index: 1;">
+                <button class="btn btn-info h-100" v-bind:disabled="activeSection <= 0" v-on:click="decrementSection">
+                    <i class="fas fa-arrow-circle-left"></i>
+                </button>
+            </div>
+            <transition name="slide-fade" mode="out-in">
+                <div class="px-2 col-10" v-if="activeSection === 0" style="height: 75vh;" key="image">
+                    <div class="row justify-content-center mx-0">
+                         <file-reader v-on:load="img=$event"></file-reader>
+                    </div>
+                    <div class="row justify-content-center mx-0">
+                        <img v-bind:src="img" style="height: 500px;width:100%;" id="image-preview" />
+                    </div>
                 </div>
-                <div class="row justify-content-center">
-                    <img v-bind:src="img" style="height: 500px;" id="image-preview" />
+                <div class="px-2 col-10" v-else-if="activeSection === 1" style="height: 75vh;" key="scale">
+                    <div class="form-group">
+                        {{ form.scale.errors }}
+                        <label for="scaleField">Musical Scale:</label>
+                         {% render_field form.scale class="custom-select" v-model="scale" %}
+                    </div>
                 </div>
 
-            </div>
-            <div class="row justify-content-center" v-if="activeSection === 1">
-                b
-            </div>
-            <div class="row justify-content-center" v-if="activeSection === 2">
-                c
-            </div>
-            <div class="row justify-content-center" v-if="activeSection === 3">
-                d
+                <div class="px-2 col-10" v-else-if="activeSection === 2" style="height: 75vh;" key="fileName">
+                    <div class="d-flex h-100 justify-content-center align-items-center flex-column">
+                        <h4>File Name</h4>
+                        <input type="text" class="form-control text-center" id="file-name" v-input-mask data-inputmask-mask="*{1,50}.midi"
+                                v-model="fileName" />
+                    </div>
+                </div>
+                <div class="px-2 col-10" v-else-if="activeSection === 3" style="height: 75vh;" key="output">
+                    <h1>Shit</h1>
+                </div>
+            </transition>
+
+            <div class="col-1">
+                <button class="btn btn-info h-100" v-bind:disabled="activeSection >= 3" v-on:click="incrementSection">
+                    <i class="fas fa-arrow-circle-right"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -80,5 +112,6 @@
         }
     }
 </script>
+
 <script src="{% static 'js/V-Home.js' %}"></script>
 {% endblock %}

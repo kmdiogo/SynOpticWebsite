@@ -1,3 +1,9 @@
+Vue.directive('input-mask', {
+	bind: function(el) {
+		new Inputmask().mask(el);
+	},
+});
+
 Vue.component('file-reader', {
     methods: {
         loadDataFromFile: function(ev) {
@@ -18,7 +24,9 @@ var app = new Vue({
     el: '#wrapper-app',
     data: {
         activeSection: 0,
-        img: '/static/images/pandas.jpg'
+        img: '',
+        scale: 'CMAJOR',
+        fileName: ''
     },
     methods:{
         imgPreviewChange: function(e){
@@ -35,6 +43,14 @@ var app = new Vue({
             reader.onload = e => this.$emit('load', e.target.result);
 
             reader.readAsDataURL(input.files[0]);
+        },
+        incrementSection: function(){
+            //if (this.img !== '')
+                this.activeSection += 1;
+        },
+        decrementSection: function(){
+            //if (this.img !== '')
+                this.activeSection -= 1;
         }
     }
 });
