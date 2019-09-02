@@ -4,114 +4,139 @@
 
 
 {% block head %}
-<style xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    #wrapper-app{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-    }
-    #navs > li > a,button{
-        text-align: center;
-        width: 100%;
-    }
-    .slide-fade-enter-active {
-      transition: all .3s ease;
-    }
-    .slide-fade-leave-active {
-      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
-      transform: translateX(-20px);
-      opacity: 0;
-    }
-</style>
+
 {% endblock %}
 
 
 {% block content %}
-<div class="container" id="wrapper-app">
-    <div class="card w-100 text-white bg-dark shadow-lg">
-        <div class="card-header">
-            <ul class="nav row" id="navs">
-                <li class="nav-item col-md">
-                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 0}" v-on:click="activeSection = 0">Image</button>
-                </li>
-                <li class="nav-item col-md">
-                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 1 }" v-on:click="activeSection = 1">Scale</button>
-                </li>
-                <li class="nav-item col-md">
-                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 2}" v-on:click="activeSection = 2">Name</button>
-                </li>
-                <li class="nav-item col-md">
-                    <button class="btn btn-outline-primary" v-bind:class="{ active: activeSection === 3 }" v-on:click="activeSection = 3">File</button>
-                </li>
-            </ul>
+<form id="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="jumbotron">
+                <h1 class="display-3">Welcome to SynOptic!</h1>
+                <p class="lead">The concept is simple. We take the images you upload and convert them into music</p>
+                <hr class="my-4">
+                <p>We use a unique algorithm to capture the essence of your photographs and map them to a scale of your choosing</p>
+                <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#start">Get Started</a>
+                </p>
+            </div>
         </div>
-        <div class="card-body row no-gutters" style="padding: 0;">
-            <div class="col-1" style="z-index: 1;">
-                <button class="btn btn-info h-100" v-bind:disabled="activeSection <= 0" v-on:click="decrementSection">
-                    <i class="fas fa-arrow-circle-left"></i>
-                </button>
+
+        <div class="row mb-5" id="start">
+            <div class="col-md-3">
+                <h1>Step 1.</h1>
+                <i class="far fa-images fa-7x"></i>
             </div>
-            <transition name="slide-fade" mode="out-in">
-                <div class="px-2 col-10" v-if="activeSection === 0" style="height: 75vh;" key="image">
-                    <div class="row justify-content-center mx-0">
-                         <file-reader v-on:load="img=$event"></file-reader>
+            <div class="col-md-9">
+                <div class="card w-100">
+                    <div class="card-header">
+                        <h2>Upload Image</h2>
                     </div>
-                    <div class="row justify-content-center mx-0">
-                        <img v-bind:src="img" style="height: 500px;width:100%;" id="image-preview" />
+                    <div class="card-body">
+                        <div class="row mb-5">
+                            <div class="col-md-4">
+                                {% render_field form.image %}
+                            </div>
+                            <div class="col-md-8">
+                                <img class="img-fluid" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="px-2 col-10" v-else-if="activeSection === 1" style="height: 75vh;" key="scale">
-                    <div class="form-group">
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <h1>Step 2.</h1>
+                <i class="fas fa-music fa-7x"></i>
+            </div>
+            <div class="col-md-9">
+                <div class="card w-100">
+                    <div class="card-header">
+                        <h2>Choose Your Scale</h2>
+                    </div>
+                    <div class="card-body">
                         {{ form.scale.errors }}
-                        <label for="scaleField">Musical Scale:</label>
-                         {% render_field form.scale class="custom-select" v-model="scale" %}
+                         {% render_field form.scale class="form-control" %}
                     </div>
                 </div>
-
-                <div class="px-2 col-10" v-else-if="activeSection === 2" style="height: 75vh;" key="fileName">
-                    <div class="d-flex h-100 justify-content-center align-items-center flex-column">
-                        <h4>File Name</h4>
-                        <input type="text" class="form-control text-center" id="file-name" v-input-mask data-inputmask-mask="*{1,50}.midi"
-                                v-model="fileName" />
-                    </div>
-                </div>
-                <div class="px-2 col-10" v-else-if="activeSection === 3" style="height: 75vh;" key="output">
-                    <h1>Shit</h1>
-                </div>
-            </transition>
-
-            <div class="col-1">
-                <button class="btn btn-info h-100" v-bind:disabled="activeSection >= 3" v-on:click="incrementSection">
-                    <i class="fas fa-arrow-circle-right"></i>
-                </button>
             </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <h1>Step 3.</h1>
+                <i class="far fa-clock fa-7x"></i>
+            </div>
+            <div class="col-md-9">
+                <div class="card w-100">
+                    <div class="card-header">
+                        <h2>Song Length</h2>
+                    </div>
+
+                    <div class="card-body">
+                        {% render_field form.length class="form-control" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <h1>Step 4.</h1>
+                <i class="fas fa-pencil-alt fa-7x"></i>
+            </div>
+            <div class="col-md-9">
+                <div class="card w-100">
+                    <div class="card-header">
+                        <h2>Name Your Song</h2>
+                    </div>
+
+                    <div class="card-body">
+                        {% render_field form.fileName class="form-control" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <h1>All Set</h1>
+            </div>
+            <div class="col-md-9">
+                <div class="card w-100">
+                    <button class="btn btn-primary" type="submit">Generate Song <i class="fas fa-clipboard-check"></i></button>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
-<input type="hidden" id="image-data" />
+</form>
+    <input type="hidden" id="image-data" />
+
 {% endblock %}
 
 
 {% block scripts %}
 <script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            let reader = new FileReader();
+$('#generate-song-button').click(function(){
+    console.log($('#form').serialize());
+});
 
-            reader.onload = function (e) {
-                let imgPrev = document.getElementById('image-preview');
-                imgPrev.setAttribute('src', e.target.result);
-            }
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        let reader = new FileReader();
 
-            reader.readAsDataURL(input.files[0]);
-        }
+        reader.onload = function (e) {
+            let imgPrev = document.getElementById('image-preview');
+            imgPrev.setAttribute('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
     }
+}
 </script>
-
-<script src="{% static 'js/V-Home.js' %}"></script>
 {% endblock %}

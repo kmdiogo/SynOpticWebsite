@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse
 from .AudioizationScripts.image_to_sound import image_to_audio
 from tempfile import NamedTemporaryFile
 from .forms import *
@@ -50,6 +50,7 @@ def index(request):
                 'Content-Disposition'] = 'attachment; filename=' + fileName + '.mid'  # originalImage.name.split('.')[0] + "in" + scaleName + '.mid'
             return response
         else:
+            print(form.errors)
             return render(request, "SynOptic_Website/index.html", {'form': form})
     else:
         form = MIDIConfig()
