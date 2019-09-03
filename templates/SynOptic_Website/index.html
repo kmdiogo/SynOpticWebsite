@@ -9,7 +9,7 @@
 
 
 {% block content %}
-<form id="form" method="post" enctype="multipart/form-data">
+<form id="form" method="post" enctype="multipart/form-data" autocomplete="off">
     {% csrf_token %}
     <div class="container my-5">
         <div class="row justify-content-center">
@@ -19,13 +19,13 @@
                 <hr class="my-4">
                 <p>We use a unique algorithm to capture the essence of your photographs and map them to a scale of your choosing</p>
                 <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#start">Get Started</a>
+                <a class="btn btn-primary btn-lg" href="#step1">Get Started</a>
                 </p>
             </div>
         </div>
 
-        <div class="row mb-5" id="start">
-            <div class="col-md-3">
+        <div class="row mb-5" id="step1">
+            <div class="col-md-3 d-flex flex-column align-items-center">
                 <h1>Step 1.</h1>
                 <i class="far fa-images fa-7x"></i>
             </div>
@@ -42,8 +42,8 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-3">
+        <div class="row mb-5" id="step2">
+            <div class="col-md-3 d-flex flex-column align-items-center">
                 <h1>Step 2.</h1>
                 <i class="fas fa-music fa-7x"></i>
             </div>
@@ -60,8 +60,8 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-3">
+        <div class="row mb-5" id="step3">
+            <div class="col-md-3 d-flex flex-column align-items-center">
                 <h1>Step 3.</h1>
                 <i class="far fa-clock fa-7x"></i>
             </div>
@@ -78,8 +78,8 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-3">
+        <div class="row mb-5" id="step4">
+            <div class="col-md-3 d-flex flex-column align-items-center">
                 <h1>Step 4.</h1>
                 <i class="fas fa-pencil-alt fa-7x"></i>
             </div>
@@ -96,8 +96,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row" id="step5">
+            <div class="col-md-3 d-flex flex-column align-items-center">
                 <h1>All Set</h1>
             </div>
             <div class="col-md-9">
